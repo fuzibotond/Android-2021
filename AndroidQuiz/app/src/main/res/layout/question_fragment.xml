@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="question"
+            type="com.example.quizapp.Question" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout">
+
+
+        <TextView
+            android:id="@+id/textViewQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="149dp"
+            android:layout_marginTop="140dp"
+            android:text="@{question.component1()}"
+            android:textSize="24sp" />
+
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="164dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginBottom="74dp"
+            android:text="Next" />
+
+        <TextView
+            android:id="@+id/namePanel"
+            android:layout_width="325dp"
+            android:layout_height="38dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="36dp"
+            android:text="TextView" />
+
+    </RelativeLayout>
+</layout>
