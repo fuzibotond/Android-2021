@@ -8,17 +8,64 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.drawerlayout.widget.DrawerLayout
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="390dp"
-        android:layout_height="639dp"
-        android:layout_marginBottom="88dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:navGraph="@navigation/quiz_nav_graph" />
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:openDrawer="start">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/menu_quiz"
+                    app:navigationIcon="@mipmap/ic_launcher"
+                    style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+            <fragment
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="390dp"
+                android:layout_height="639dp"
+                android:layout_marginBottom="88dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintStart_toStartOf="parent"
+                app:navGraph="@navigation/quiz_nav_graph" />
+
+            <!-- Screen content -->
+            <!-- Use app:layout_behavior="@string/appbar_scrolling_view_behavior" to fit below top app bar -->
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+    android:id="@+id/menu_navigation_view"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+        app:menu="@menu/navigation_menu"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,11 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/fuzib/OneDrive/Dokumentumok/GitHub/Android-2021/AndroidQuiz/app/src/main/res/layout/activity_display_message.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/fuzib/OneDrive/Dokumentumok/GitHub/Android-2021/AndroidQuiz/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/fuzib/OneDrive/Dokumentumok/GitHub/Android-2021/AndroidQuiz/app/src/main/res/layout/activity_main.xml" value="0.125" />
         <entry key="..\:/Users/fuzib/OneDrive/Dokumentumok/GitHub/Android-2021/AndroidQuiz/app/src/main/res/layout/fragment_first.xml" value="0.1" />
         <entry key="..\:/Users/fuzib/OneDrive/Dokumentumok/GitHub/Android-2021/AndroidQuiz/app/src/main/res/layout/question_fragment.xml" value="0.1" />
         <entry key="..\:/Users/fuzib/OneDrive/Dokumentumok/GitHub/Android-2021/AndroidQuiz/app/src/main/res/layout/quiz_end_fragment.xml" value="0.12" />
         <entry key="..\:/Users/fuzib/OneDrive/Dokumentumok/GitHub/Android-2021/AndroidQuiz/app/src/main/res/layout/quiz_start_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/fuzib/OneDrive/Dokumentumok/GitHub/Android-2021/AndroidQuiz/app/src/main/res/menu/navigation_menu.xml" value="0.184375" />
       </map>
     </option>
   </component>

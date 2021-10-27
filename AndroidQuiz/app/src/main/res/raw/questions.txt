@@ -1,0 +1,51 @@
+What is an activity in Android?
+Activity performs the actions on the screen
+Manage the Application content
+Screen UI
+None of the above
+WHich of the following is/are are the subclasses in Android?
+Action Bar Activity
+Launcher Activity
+Preference Activity
+Tab Activity
+All of above
+How to stop the services in android?
+finish()
+system.exit().
+By manually
+stopSelf() and stopService()
+How many applications are there in a given task in android?
+Two
+One
+Many
+Zero
+Q 5 -Which permissions are required to get a location in android?
+A - ACCESS_FINE and ACCESS_COARSE
+B - GPRS permission
+C - Internet permission
+D - WIFI permission.
+Q 6 - What is a base adapter in android?
+A - Base Adapter is a common class for any adapter, which can we use for both ListView and spinner
+B - A kind of adapter
+C - Data storage space
+D - None of the above.
+Q 7 - Data can be read from local source XML in android through
+A - XML resource parser
+B - XML pull parsing
+C - DOM parsing
+D - None of the above
+Q 8 - How to find the JSON element length in android JSON?
+A - count()
+B - sum()
+C - add()
+D - length()
+Q 9 - Why don't we give MIN SDK as 1 in android?
+A - Android deprecated version
+B - There is no value for 1
+C - Android doesn't allow min version 1
+D - None of the above
+Q 10 - What is off-line synchronization in android?
+A - Synchronization with internet
+B - Background synchronization
+C - Synchronization without internet
+D - None of the above
