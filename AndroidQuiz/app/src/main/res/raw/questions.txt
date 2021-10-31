@@ -1,24 +1,23 @@
-What is an activity in Android?
-Activity performs the actions on the screen
-Manage the Application content
-Screen UI
-None of the above
-WHich of the following is/are are the subclasses in Android?
-Action Bar Activity
-Launcher Activity
-Preference Activity
-Tab Activity
-All of above
-How to stop the services in android?
-finish()
-system.exit().
-By manually
-stopSelf() and stopService()
-How many applications are there in a given task in android?
-Two
-One
-Many
-Zero
+Q 1 - What is an activity in Android?
+A - Activity performs the actions on the screen
+B - Manage the Application content
+C - Screen UI
+D - None of the above
+Q 2 - WHich of the following is/are are the subclasses in Android?
+A - Action Bar Activity
+B - Launcher Activity
+C - Preference Activity
+D - Tab Activity
+Q 3 - How to stop the services in android?
+A - finish()
+B - system.exit().
+C - By manually
+D - stopSelf() and stopService()
+Q 4 - How many applications are there in a given task in android?
+A - Two
+B - One
+C - Many
+D - Zero
 Q 5 -Which permissions are required to get a location in android?
 A - ACCESS_FINE and ACCESS_COARSE
 B - GPRS permission
@@ -48,4 +47,54 @@ Q 10 - What is off-line synchronization in android?
 A - Synchronization with internet
 B - Background synchronization
 C - Synchronization without internet
+D - None of the above
+Q 11 - Which keyword do you use to define a function in Kotlin?
+A - main
+B - fun
+C - function
+D - new
+Q 12 - Kotlin is developed by...
+A - Google
+B - IBM
+C - Sun System
+D - JetBrains
+Q 13 - Which of the below extensions is used to create Kotlin file?
+A - .kt
+B - .ko
+C - .jv
+D - .app
+Q 14 - How to make comment in Kotlin?
+A - // this is comment
+B - */ this is comment
+C - # this is comment
+D - <!-- this is comment -->
+Q 15 - How many types of constructors available in Kotlin?
+A - 1
+B - 2
+C - 3
+D - 4
+Q 16 - How to create instance of the class in Kotlin?
+A - val person = new Person()
+B - val person = obj Person()
+C - val person = Person()
+D - val person = instance of Person()
+Q 17 - The default visibility of Kotlin class is..
+A - public
+B - private
+C - protected
+D - internal
+Q 18 - Which of the following is used to handle null exceptions in Kotlin?
+A - Lambda Function
+B - Range
+C - Sealed Class
+D - Elvis Operator
+Q 19 - Which of the following is not basic datatypes in Kotlin?
+A - String
+B - List
+C - Array
+D - Character
+Q 20 - Kotlin language is ___
+A - OOP
+B - Procedural Programing
+C - A and B Both
 D - None of the above

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".quiz.QuestionAddFragment">
+
+    <ImageView
+        android:id="@+id/new_question"
+        android:layout_width="213dp"
+        android:layout_height="204dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/img_new_question" />
+
+    <EditText
+        android:id="@+id/tv_question_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_question"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#575454"
+        android:ems="10"
+        android:hint="Question text"
+         />
+
+    <TextView
+        android:id="@+id/answers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_question_text"
+        android:text="@string/answers"
+        android:textSize="18sp">
+    </TextView>
+    <EditText
+        android:id="@+id/tv_answer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answers"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#575454"
+        android:ems="10"
+        android:hint="Answer 1"
+         />
+    <EditText
+        android:id="@+id/tv_answer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_answer1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#575454"
+        android:ems="10"
+        android:hint="Answer 2"
+         />
+    <EditText
+        android:id="@+id/tv_answer3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_answer2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#575454"
+        android:ems="10"
+        android:hint="Answer 3"
+        />
+    <EditText
+        android:id="@+id/tv_answer4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_answer3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#575454"
+        android:ems="10"
+        android:hint="Answer 4"
+         />
+    <Button
+        android:id="@+id/btn_save_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_answer4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Save question"
+        >
+
+    </Button>
+
+</RelativeLayout>

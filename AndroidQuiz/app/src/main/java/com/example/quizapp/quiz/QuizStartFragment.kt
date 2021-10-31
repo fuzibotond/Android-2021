@@ -1,4 +1,4 @@
-package com.example.quizapp
+package com.example.quizapp.quiz
 
 import android.app.Activity
 import android.content.Context
@@ -14,18 +14,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.min
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.example.quizapp.databinding.ActivityMainBinding
+import com.example.quizapp.R
+import com.example.quizapp.models.SharedViewModel
 
-class QuizStartFragment :Fragment( R.layout.quiz_start_fragment){
+class QuizStartFragment :Fragment(R.layout.quiz_start_fragment){
 
     private val TAG = "QuizStartFragment"
 
@@ -38,8 +38,8 @@ class QuizStartFragment :Fragment( R.layout.quiz_start_fragment){
     lateinit var txtViewInfos: TextView
     lateinit var editTxtForStatus: EditText
     lateinit var v: View
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
-    private val sharedViewModel:SharedViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,7 +74,7 @@ class QuizStartFragment :Fragment( R.layout.quiz_start_fragment){
         })
         textView = v.findViewById(R.id.textViewTitle)
         inputTextArea = v.findViewById(R.id.editTextTextPersonName)
-        btnGetStarted = v.findViewById(R.id.buttonGetStarted)
+        btnGetStarted = v.findViewById(R.id.btnGetStarted)
         selectButton = v.findViewById(R.id.selectButton)
         selectButton.setOnClickListener {
             Log.i(TAG, "Pick contact btn pushed")
@@ -100,12 +100,11 @@ class QuizStartFragment :Fragment( R.layout.quiz_start_fragment){
             findNavController().navigate(R.id.action_quizStartFragment_to_questionFragment)
 
         }
+
         imgViewForProfilePic = v.findViewById(R.id.imgViewForProfilePic)
         imgViewForProfilePic.setOnClickListener{
             getImage.launch(0)
         }
-        txtViewInfos = v.findViewById(R.id.textViewInformation)
-        editTxtForStatus = v.findViewById(R.id.editTxtForStatus)
         val text = "We are on create..."
         Log.i(TAG, text)
         //val duration = Toast.LENGTH_SHORT
@@ -126,7 +125,9 @@ class QuizStartFragment :Fragment( R.layout.quiz_start_fragment){
         val resolver = requireActivity().contentResolver
         val rs = resolver.query(uri!!,null, null, null, null)
         val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(resolver, uri)
-        imgViewForProfilePic.setImageBitmap(bitmap.cropCircularArea())
+        sharedViewModel.saveProfilePic(bitmap.cropCircularArea())
+        imgViewForProfilePic.setImageBitmap(sharedViewModel.imgProfilePic.value)
+
     }
 
     fun Bitmap.cropCircularArea(): Bitmap? {

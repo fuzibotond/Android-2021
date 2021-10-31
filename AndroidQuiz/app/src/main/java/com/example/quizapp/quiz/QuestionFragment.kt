@@ -1,8 +1,8 @@
-package com.example.quizapp
+package com.example.quizapp.quiz
 
 import android.app.AlertDialog
+import android.graphics.RadialGradient
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.quizapp.R
+import com.example.quizapp.models.SharedViewModel
+import com.example.quizapp.module.QuizController
+import com.google.android.material.snackbar.Snackbar
 
 class QuestionFragment:Fragment(R.layout.question_fragment) {
     val TAG = "Question Fragment"
@@ -22,14 +25,12 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
     lateinit var rb2:RadioButton
     lateinit var rb3:RadioButton
     lateinit var rb4:RadioButton
+    lateinit var radioGroup:RadioGroup
     lateinit var txtViewQuestion:TextView
     lateinit var btnNext:Button
     lateinit var namePanel:TextView
-    lateinit var quizController:QuizController
     lateinit var layout:RelativeLayout
-    private var correct = 0
-    private var wrong = 0
-    private val sharedViewModel:SharedViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     companion object{
         var COUNTER:Int = 0
@@ -48,21 +49,18 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         initializeComponents()
-//        namePanel.setText("Now playing: " + displayName)
 
         return viewLayout
     }
 
     fun initializeComponents(){
         namePanel = viewLayout.findViewById(R.id.namePanel)
-        namePanel.setText("Now playing: "+sharedViewModel.name.value)
-        if (activity != null){
-            quizController = QuizController(requireActivity().applicationContext)
-        }else{
-            Log.i("Activity Check","No activity" )
-        }
+        namePanel.setText("Now playing: " + sharedViewModel.name.value)
 
-        layout  = viewLayout.findViewById<RelativeLayout>(R.id.layout)
+        sharedViewModel.saveQuizController(requireActivity())
+        txtViewQuestion = viewLayout.findViewById(R.id.textViewQuestion)
+        btnNext = viewLayout.findViewById(R.id.buttonNext)
+        layout  = viewLayout.findViewById(R.id.layout)
         rb1 = RadioButton(this.activity)
         rb1.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         rb1.id = 0
@@ -79,8 +77,7 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
         rb4.layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         rb4.id = 3
 
-        // Create RadioGroup Dynamically
-        val radioGroup = RadioGroup(this.activity)
+        radioGroup = RadioGroup(this.activity)
         val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         params.setMargins(200, 700, 0, 0)
         radioGroup.layoutParams = params
@@ -94,7 +91,6 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             var text = getString(R.string.Chose)
-
             var answer = if (checkedId == 0) {
                     rb1.text
                 } else if(checkedId == 1) {
@@ -108,67 +104,77 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
                     Log.i("Dynamic: ", text )
         }
 
-        txtViewQuestion = viewLayout.findViewById(R.id.textViewQuestion)
-        btnNext = viewLayout.findViewById(R.id.buttonNext)
-        if (COUNTER==0) {
+
+        if (COUNTER == 0) {
             initQuiz()
         }
         btnNext.setOnClickListener {
-            COUNTER++
-            if (COUNTER < quizController.questions.size ){
+            if (!rb1.isChecked && !rb2.isChecked && !rb3.isChecked && !rb4.isChecked){
+                val snack = Snackbar.make(it,"Please select your answer!",Snackbar.LENGTH_LONG)
+                snack.show()
+                Log.i("XXX" ,"bajvan")
+
+            }
+            else{
+                COUNTER++
+            }
+
+
+            if (COUNTER < sharedViewModel.questions.value?.size!!){
                 Log.i("Counter: ", COUNTER.toString())
                 startingQuiz(COUNTER)
+
             }else{
                 Log.i("Counter END: ", COUNTER.toString())
                 findNavController().navigate(R.id.action_questionFragment_to_quizEndFragment)
                 COUNTER = 0
             }
-
         }
 
     }
     fun initQuiz(){
-        quizController.randomizeQuestions()
-        txtViewQuestion.setText( quizController.questions[0].text)
-        val answer = quizController.questions[0].answers
-        rb1.setText(answer[0])
-        rb2.setText(answer[1])
-        rb3.setText(answer[2])
-        rb4.setText(answer[3])
+        txtViewQuestion.setText(sharedViewModel.questions.value?.get(0)?.text)
+        val answer = sharedViewModel.questions.value?.get(0)?.answers
+        rb1.setText(answer?.get(0))
+        rb2.setText(answer?.get(1))
+        if (answer?.get(2).toString() == ""){
+            radioGroup.removeView(rb3)
+        }else{
+            rb3.setText(answer?.get(2))
+        }
+        if (answer?.get(3).toString() == ""){
+            radioGroup.removeView(rb4)
+        }else{
+            rb4.setText(answer?.get(3))
+        }
+
 
         if (rb1.isChecked){
             sharedViewModel.incScore()
-            correct++
-            Log.i(TAG, "Correct")
-
-        }else{
-            Log.i(TAG, "Wrong")
-            wrong++
         }
-
-        Log.i(TAG, "First Results: \nCorrect: $correct \nWrong: $wrong")
 
     }
     fun startingQuiz(counter:Int){
-
-            txtViewQuestion.setText( quizController.questions[counter].text)
-            val answer = quizController.questions[counter].answers
-                rb1.setText(answer[0])
-                rb2.setText(answer[1])
-                rb3.setText(answer[2])
-                rb4.setText(answer[3])
+            txtViewQuestion.setText(sharedViewModel.currentQuestion.value?.text)
+            val answer = sharedViewModel.currentQuestion.value?.answers
+                rb1.setText(answer?.get(0))
+                rb2.setText(answer?.get(1))
+        if (answer?.get(2).toString() == ""){
+            radioGroup.removeView(rb3)
+        }else{
+            rb3.setText(answer?.get(2))
+        }
+        if (answer?.get(3).toString() == ""){
+            radioGroup.removeView(rb4)
+        }else{
+            rb4.setText(answer?.get(3))
+        }
 
             if (rb1.isChecked){
                 sharedViewModel.incScore()
-                correct++
-                Log.i(TAG, "Correct")
-
-            }else{
-                Log.i(TAG, "Wrong")
-                wrong++
             }
+        sharedViewModel.saveCurrentQuestion(sharedViewModel.questions.value?.get(counter))
 
-        Log.i(TAG, "Final Results: \nCorrect: $correct \nWrong: $wrong")
     }
     fun handleBack(){
         AlertDialog.Builder(this.activity)

@@ -1,4 +1,4 @@
-package com.example.quizapp
+package com.example.quizapp.quiz
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.quizapp.R
+import com.example.quizapp.models.SharedViewModel
+import com.example.quizapp.module.QuizController
 
 class QuizEndFragment :Fragment(R.layout.quiz_end_fragment){
     lateinit var viewLayout:View
     lateinit var scoreBoard:TextView
-    var displayScore:String? = ""
     lateinit var btn_try_again:Button
-    private val sharedViewModel:SharedViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +36,7 @@ class QuizEndFragment :Fragment(R.layout.quiz_end_fragment){
         btn_try_again.setOnClickListener {
             findNavController().navigate(R.id.action_quizEndFragment_to_quizStartFragment)
         }
-        scoreBoard.setText(sharedViewModel.score.value.toString() +" / " + QuizController.QUESTIONS.size+" are correct" )
+        scoreBoard.setText("Your score: " + sharedViewModel.score.value.toString() +" / " + sharedViewModel.questions.value?.size )
     }
 
 }
