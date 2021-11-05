@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
+import com.example.quizapp.models.SharedViewModel
 
 
 class HomeFragment : Fragment() {
@@ -19,10 +21,10 @@ class HomeFragment : Fragment() {
     lateinit var btnTestYourSkills:Button
     lateinit var btnReadQuestions:Button
     lateinit var btnCreateQuestions:Button
+    private val sharedViewModel:SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     private fun initialize() {
@@ -31,10 +33,12 @@ class HomeFragment : Fragment() {
         btnTestYourSkills = viewLayout.findViewById(R.id.btn_test_your_skills)
         btnReadQuestions = viewLayout.findViewById((R.id.btn_read_questions))
         btnCreateQuestions = viewLayout.findViewById(R.id.btn_create_questions)
+        sharedViewModel.saveQuizController(requireActivity())
+
     }
     private fun setListeners(){
         btnReadQuestions.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_quizStartFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_questionListFragment)
         }
         btnCreateQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_questionAddFragment)

@@ -26,7 +26,24 @@ class SharedViewModel : ViewModel() {
     val quizController = _quizController
     private var _imgProfilePic = MutableLiveData<Bitmap>()
     val imgProfilePic = _imgProfilePic
+    private var _questionNum = MutableLiveData(0)
+    val questionNum = _questionNum
+    private var _detailsQuestion = MutableLiveData<Question>()
+    val detailsQuestion = _detailsQuestion
 
+    fun saveDetailsQuestion(question:Question){
+        _detailsQuestion.value = question
+    }
+    fun getDetailsQuestion():Question{
+        return detailsQuestion.value!!
+    }
+
+    fun saveSize(){
+        _questionNum.value = questions.value!!.size
+    }
+    fun getSize():Int{
+        return questionNum.value!!
+    }
     fun getScore():Int{
         return score.value!!
     }
@@ -50,9 +67,7 @@ class SharedViewModel : ViewModel() {
         if (_quizController.value == null){
             val newQuizController = QuizController(context)
             _quizController.value = newQuizController
-
         }
-
         setQuizController()
     }
     fun setQuizController(){
@@ -83,5 +98,10 @@ class SharedViewModel : ViewModel() {
             _questions.value = temp
 
         }
+        saveSize()
+    }
+
+    fun getQuestion(counterCreate: Int): Question? {
+        return questions.value?.get(counterCreate)
     }
 }

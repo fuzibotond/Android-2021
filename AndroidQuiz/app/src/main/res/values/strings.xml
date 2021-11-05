@@ -23,4 +23,7 @@
     <string name="new_question">New question</string>
     <string name="edit_name">Edit name</string>
     <string name="answers">Answers</string>
+    <string name="details">Details</string>
+    <string name="delete">Delete</string>
+    <string name="back">Back</string>
 </resources>

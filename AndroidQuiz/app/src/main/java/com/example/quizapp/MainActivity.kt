@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> findNavController(R.id.nav_host_fragment).navigate(R.id.homeFragment)
                 R.id.quiz_time -> findNavController(R.id.nav_host_fragment).navigate(R.id.quizStartFragment)
                 R.id.profile -> findNavController(R.id.nav_host_fragment).navigate(R.id.profileFragment)
-                R.id.list_of_questions -> findNavController(R.id.nav_host_fragment).navigate(R.id.quizStartFragment)
+                R.id.list_of_questions -> findNavController(R.id.nav_host_fragment).navigate(R.id.questionListFragment)
                 R.id.new_question -> findNavController(R.id.nav_host_fragment).navigate(R.id.questionAddFragment)
             }
 
