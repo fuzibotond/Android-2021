@@ -16,25 +16,31 @@
         android:textColor="#595757"
         android:textSize="48sp" />
 
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/editTextTextPersonName_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imgViewForProfilePic"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:ems="14"
-        android:inputType="textPersonName"
-        android:text="@string/your_name"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_below="@+id/imgViewForProfilePic">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/your_name"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/selectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextTextPersonName"
+        android:layout_below="@+id/editTextTextPersonName_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="13dp"
         android:text="@string/pick_contact" />

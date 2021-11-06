@@ -23,22 +23,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
+import com.example.quizapp.databinding.HeaderNavigationDrawerBinding
+import com.example.quizapp.databinding.QuizStartFragmentBinding
 import com.example.quizapp.models.SharedViewModel
 
 class QuizStartFragment :Fragment(R.layout.quiz_start_fragment){
 
     private val TAG = "QuizStartFragment"
 
-    lateinit var textView: TextView
-    lateinit var btnGetStarted: Button
-    lateinit var inputTextArea: EditText
-
-    lateinit var selectButton: Button
-    lateinit var imgViewForProfilePic: ImageView
-    lateinit var txtViewInfos: TextView
-    lateinit var editTxtForStatus: EditText
-    lateinit var v: View
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private var _binding: QuizStartFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,70 +41,34 @@ class QuizStartFragment :Fragment(R.layout.quiz_start_fragment){
         savedInstanceState: Bundle?
     ): View? {
 
-        v = inflater.inflate(R.layout.quiz_start_fragment, container, false)
+        _binding = QuizStartFragmentBinding.inflate(inflater, container, false)
         initialize()
-        return v
+        return binding.root
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
-
-    fun startQuiz() {
-        Log.i(TAG, "btn Get started")
-//        val message = editTxtForStatus.text.toString() + " " + inputTextArea.text.toString()
-//        val intent = Intent(this, DisplayMessageActivity::class.java).apply {
-//            putExtra(MainActivity.EXTRA_MESSAGE, message)
-//        }
-//        startActivity(intent)
-    }
     fun initialize(){
-        sharedViewModel.name.observe(viewLifecycleOwner,{name->
-            inputTextArea.setText(name)
-        })
-        textView = v.findViewById(R.id.textViewTitle)
-        inputTextArea = v.findViewById(R.id.editTextTextPersonName)
-        btnGetStarted = v.findViewById(R.id.btnGetStarted)
-        selectButton = v.findViewById(R.id.selectButton)
-        selectButton.setOnClickListener {
-            Log.i(TAG, "Pick contact btn pushed")
 
+        binding.selectButton.setOnClickListener {
             getContact.launch(0)
+        }
+        binding.btnGetStarted.setOnClickListener {
+
+            if(binding.editTextTextPersonName.text.toString().isEmpty()){
+                Toast.makeText(requireContext(), "Oops! You can't start without name! Please fill it!", Toast.LENGTH_SHORT).show()
+            }else{
+                sharedViewModel.saveName(binding.editTextTextPersonName.text.toString())
+                Toast.makeText(requireContext(), "Let's get it started ${sharedViewModel.name.value}", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_quizStartFragment_to_questionFragment)
+            }
 
         }
-        Log.i(TAG, "We are on Create!")
-        btnGetStarted.setOnClickListener {
-            Log.i(TAG, "Button Clicked!")
-//            Toast.makeText(this, "Button Clicked", Toast.LENGTH_SHORT).show()
-            val snackbar = Snackbar.make(
-                it,
-                "Button clicked! Thanks: ${inputTextArea.text.toString()}!",
-                Snackbar.LENGTH_SHORT
-            )
-            snackbar.show()
-
-            startQuiz()
-            sharedViewModel.saveName(inputTextArea.text.toString())
-
-//            communicator.passDataCom( inputTextArea.text.toString())
-            findNavController().navigate(R.id.action_quizStartFragment_to_questionFragment)
-
-        }
-
-        imgViewForProfilePic = v.findViewById(R.id.imgViewForProfilePic)
-        imgViewForProfilePic.setOnClickListener{
+        binding.imgViewForProfilePic.setOnClickListener {
             getImage.launch(0)
         }
-        val text = "We are on create..."
-        Log.i(TAG, text)
-        //val duration = Toast.LENGTH_SHORT
-        //val toast = Toast.makeText(applicationContext, text, duration)
-        //toast.show()
     }
 
     val getContact = registerForActivityResult(PickContact()) { uri: Uri? ->
@@ -117,7 +76,7 @@ class QuizStartFragment :Fragment(R.layout.quiz_start_fragment){
         val resolver = requireActivity().contentResolver
         val rs = resolver.query(uri!!,cols, null, null, null)
         if (rs?.moveToFirst()!!){
-            inputTextArea.setText(rs.getString(0))
+            binding.editTextTextPersonName.setText(rs.getString(0))
         }
     }
 
@@ -126,7 +85,7 @@ class QuizStartFragment :Fragment(R.layout.quiz_start_fragment){
         val rs = resolver.query(uri!!,null, null, null, null)
         val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(resolver, uri)
         sharedViewModel.saveProfilePic(bitmap.cropCircularArea())
-        imgViewForProfilePic.setImageBitmap(sharedViewModel.imgProfilePic.value)
+        binding.imgViewForProfilePic.setImageBitmap(sharedViewModel.imgProfilePic.value)
 
     }
 

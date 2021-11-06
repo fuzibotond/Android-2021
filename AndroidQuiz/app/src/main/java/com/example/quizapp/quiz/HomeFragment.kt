@@ -1,49 +1,41 @@
 package com.example.quizapp.quiz
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
+import com.example.quizapp.databinding.FragmentHomeBinding
 import com.example.quizapp.models.SharedViewModel
 
 
 class HomeFragment : Fragment() {
-    lateinit var viewLayout: View
-    lateinit var imageView: ImageView
-    lateinit var textView: TextView
-    lateinit var btnTestYourSkills:Button
-    lateinit var btnReadQuestions:Button
-    lateinit var btnCreateQuestions:Button
     private val sharedViewModel:SharedViewModel by activityViewModels()
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     private fun initialize() {
-        imageView = viewLayout.findViewById(R.id.iv_welcome)
-        textView = viewLayout.findViewById(R.id.tv_enjoy)
-        btnTestYourSkills = viewLayout.findViewById(R.id.btn_test_your_skills)
-        btnReadQuestions = viewLayout.findViewById((R.id.btn_read_questions))
-        btnCreateQuestions = viewLayout.findViewById(R.id.btn_create_questions)
         sharedViewModel.saveQuizController(requireActivity())
+        val icon = BitmapFactory.decodeResource(this.resources, R.mipmap.img_avatar)
+        sharedViewModel.saveProfilePic(icon)
 
     }
     private fun setListeners(){
-        btnReadQuestions.setOnClickListener {
+        binding.btnReadQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_questionListFragment)
         }
-        btnCreateQuestions.setOnClickListener {
+        binding.btnCreateQuestions.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_questionAddFragment)
         }
-        btnTestYourSkills.setOnClickListener {
+        binding.btnTestYourSkills.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_quizStartFragment)
         }
     }
@@ -51,10 +43,10 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewLayout = inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         initialize()
         setListeners()
-        return viewLayout
+        return binding.root
     }
 
 }

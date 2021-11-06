@@ -1,76 +1,62 @@
 package com.example.quizapp.models
-
 import android.app.Activity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation.findNavController
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizapp.R
-
-
+import com.example.quizapp.module.Question
 
 class QuestionAdapter(
     private val sharedViewModel:SharedViewModel
+
 ) :
     RecyclerView.Adapter<QuestionAdapter.DataViewHolder>() {
 
-    var counter_create: Int = 0
-    var counter_bind: Int = 0
+    var removedPosition:Int ? = null
+    var question: ArrayList<Question>? = sharedViewModel.questions.value
 
 
-    // 1. user defined ViewHolder type - Embedded class!
-    inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-
-        init{
-            itemView.setOnClickListener(this)
+    inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        var tvQuestion: TextView
+        var tvAnswer:TextView
+        var tvDelete: TextView
+        var tvDetails:TextView
+        init {
+            tvQuestion = itemView.findViewById(R.id.tv_question)
+            tvAnswer = itemView.findViewById(R.id.tv_answer)
+            tvDelete = itemView.findViewById(R.id.tv_delete)
+            tvDetails = itemView.findViewById(R.id.tv_details)
         }
-        override fun onClick(p0: View?) {
-            val currentPosition = this.adapterPosition
-            Log.d("xxxx", "AdapterPosition: $currentPosition")
-//            listener.onItemClick(currentPosition)
-        }
+
     }
-
 
     // 2. Called only a few times = number of items on screen + a few more ones
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
 
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
-        ++counter_create
-        Log.d("xxx", "onCreateViewHolder: $counter_create")
-        val question = sharedViewModel.getQuestion(counter_create)
-        val tvQuestion: TextView = itemView.findViewById(R.id.tv_question)
-        tvQuestion.text = question?.text
-        val tvAnswer:TextView = itemView.findViewById(R.id.tv_answer)
-        tvAnswer.text = question?.answers?.get(0)
-        val tvDetails:TextView = itemView.findViewById(R.id.tv_details)
-        tvDetails.setOnClickListener {
-            question?.let { it1 -> sharedViewModel.saveDetailsQuestion(it1) }
-            findNavController(parent.context as Activity, R.id.nav_host_fragment).navigate(R.id.detailsFragment)
-            Log.d("xxx", "Details")
-        }
-        val tvDelete: TextView = itemView.findViewById(R.id.tv_delete)
-        tvDelete.setOnClickListener {
-            Log.d("xxx", "Delete")
-        }
+
         return DataViewHolder(itemView)
     }
 
-    // 3. Called many times, when we scroll the list
-    override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        ++counter_bind
-        Log.d("xxx", "onBindViewHolder: $counter_bind")
+    override fun onBindViewHolder(holder: QuestionAdapter.DataViewHolder, position: Int) {
+        holder.tvQuestion.text = question?.get(position)?.text
+        holder.tvAnswer.text = question?.get(position)?.answers?.get(0)
+        holder.tvDetails.setOnClickListener {
+            question?.get(position)?.let { it1 -> sharedViewModel.saveDetailsQuestion(it1) }
+            findNavController(holder.itemView).navigate(R.id.detailsFragment)
+        }
+        holder.tvDelete.setOnClickListener {
+            question?.get(position)?.let { it1 -> sharedViewModel.deleteQuestion(it1) }
+            this.notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int {
        return sharedViewModel.getQuestions().size
     }
-
-
+    
 }

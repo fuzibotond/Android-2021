@@ -3,7 +3,7 @@ A - Activity performs the actions on the screen
 B - Manage the Application content
 C - Screen UI
 D - None of the above
-Q 2 - WHich of the following is/are are the subclasses in Android?
+Q 2 - Which of the following is/are are the subclasses in Android?
 A - Action Bar Activity
 B - Launcher Activity
 C - Preference Activity

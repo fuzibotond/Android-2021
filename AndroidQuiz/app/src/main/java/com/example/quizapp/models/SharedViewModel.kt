@@ -2,16 +2,11 @@ package com.example.quizapp.models
 
 import android.app.Activity
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.util.Log
-import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.quizapp.module.Question
 import com.example.quizapp.module.QuizController
-import com.google.android.material.snackbar.Snackbar
-import kotlin.system.exitProcess
 
 class SharedViewModel : ViewModel() {
     private var _name = MutableLiveData("Sign in")
@@ -63,6 +58,9 @@ class SharedViewModel : ViewModel() {
     fun saveQuestions(newQuestion:ArrayList<Question>){
         _questions.value = newQuestion
     }
+    fun deleteQuestion(position: Question) {
+        questions.value?.remove(position)
+    }
     fun saveQuizController(context: Activity){
         if (_quizController.value == null){
             val newQuizController = QuizController(context)
@@ -72,8 +70,9 @@ class SharedViewModel : ViewModel() {
     }
     fun setQuizController(){
         quizController.value?.questions?.let { saveQuestions(it) }
-        quizController.value?.randomizeQuestions()
+//        quizController.value?.randomizeQuestions()
     }
+
     fun saveProfilePic(newPicture:Bitmap?){
         _imgProfilePic.value = newPicture
     }

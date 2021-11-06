@@ -5,22 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
+import com.example.quizapp.databinding.FragmentProfileBinding
 import com.example.quizapp.models.SharedViewModel
 
 class ProfileFragment : Fragment() {
-    lateinit var viewLayout:View
-    lateinit var imgViewer:ImageView
-    lateinit var etPlayerName:EditText
-    lateinit var tvHighScore:TextView
-    lateinit var tvPlayerName:TextView
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    lateinit var btnSave:Button
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,29 +26,31 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewLayout = inflater.inflate(R.layout.fragment_profile, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         initialize()
         setListeners()
-        return viewLayout
+        return binding.root
     }
 
     private fun initialize() {
-        imgViewer = viewLayout.findViewById(R.id.img_profile)
         if (sharedViewModel.imgProfilePic.value != null){
-            imgViewer.setImageBitmap(sharedViewModel.imgProfilePic.value)
+            binding.imgProfile.setImageBitmap(sharedViewModel.imgProfilePic.value)
         }
-        tvHighScore = viewLayout.findViewById(R.id.high_score)
-        etPlayerName = viewLayout.findViewById(R.id.player_name)
-        tvPlayerName = viewLayout.findViewById(R.id.tv_player_name)
-        tvPlayerName.setText("Your name: ")
-        etPlayerName.setText( sharedViewModel.name.value.toString())
-        tvHighScore.setText("High score: " + sharedViewModel.getScore() + " points")
-        btnSave = viewLayout.findViewById(R.id.btn_save)
+
+        binding.tvPlayerName.setText("Your name: ")
+        binding.playerName.setHint(sharedViewModel.name.value.toString())
+        binding.highScore.setText("High score: " + sharedViewModel.getScore() + " points")
     }
 
     private fun setListeners(){
-        btnSave.setOnClickListener {
-            sharedViewModel.saveName(etPlayerName.text.toString())
+        binding.btnSave.setOnClickListener {
+            if (binding.playerName.text.toString().isEmpty()){
+                Toast.makeText(requireContext(),"Your name can't be empty!", Toast.LENGTH_SHORT).show()
+            }else{
+                sharedViewModel.saveName(binding.playerName.text.toString())
+                Toast.makeText(requireContext(),"We saved your new name, ${sharedViewModel.name.value}!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_profileFragment_to_homeFragment)
+            }
         }
     }
 

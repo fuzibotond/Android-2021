@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.quizapp.databinding.HeaderNavigationDrawerBinding
 import com.example.quizapp.models.SharedViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout:DrawerLayout
     private lateinit var navigationView:NavigationView
     private val sharedViewModel: SharedViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,24 +40,37 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
     private fun initializeView(){
+
         topAppBar = findViewById(R.id.topAppBar)
         drawerLayout = findViewById(R.id.drawerLayout)
         navigationView = findViewById(R.id.menu_navigation_view)
         sharedViewModel.saveName("Sign in")
+
     }
     private fun initMenu(){
         topAppBar.setNavigationOnClickListener {
             drawerLayout.open()
             val header = navigationView.getHeaderView(0)
-            val nameTextViev:TextView = header.findViewById(R.id.name)
-            nameTextViev.setText(sharedViewModel.name.value)
-            val subNameTextView:TextView = header.findViewById(R.id.sub_name)
-            subNameTextView.setText(sharedViewModel.name.value)
+            val nickName:TextView = header.findViewById(R.id.name)
+            val subName:TextView = header.findViewById(R.id.sub_name)
+
+            val nameToCheck = sharedViewModel.name.value!!
+            if (nameToCheck.contains(' ')){
+                Toast.makeText(this, "$nameToCheck", Toast.LENGTH_SHORT).show()
+                val name = sharedViewModel.name.value!!.takeWhile { it != ' ' }
+                nickName.setText(name)
+                subName.setText(sharedViewModel.name.value)
+            }
+            else{
+                Toast.makeText(this, "Not contains $nameToCheck", Toast.LENGTH_SHORT).show()
+                Log.d("xxx", "Not contains")
+                nickName.setText(sharedViewModel.name.value)
+                subName.setText(sharedViewModel.name.value)
+            }
 
             val imgProfilePic:ImageView = header.findViewById(R.id.avatar)
-            if (imgProfilePic != null){
-                imgProfilePic.setImageBitmap(sharedViewModel.imgProfilePic.value)
-            }
+            imgProfilePic.setImageBitmap(sharedViewModel.imgProfilePic.value)
+
         }
 
 

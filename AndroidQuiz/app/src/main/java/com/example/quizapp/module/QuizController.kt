@@ -18,7 +18,6 @@ class QuizController (val context: Context){
 
         val `is`: InputStream = context.resources.openRawResource(R.raw.questions)
         val reader = BufferedReader(InputStreamReader(`is`))
-
         var lines:Int = 0
         var mQuestion:String = ""
         var mAnswers = mutableListOf<String>()
@@ -39,31 +38,8 @@ class QuizController (val context: Context){
             lines++
         }
         QUESTIONS = this.questions
-//        questions.forEach{println(it)}
     }
 
-    fun doQuiz(quantity:Int):Unit{
-        randomizeQuestions()
-        var countDown = quantity
-        var correct = 0
-        var wrong = 0
-        while (countDown != 0){
-            println(questions[countDown].text)
-            questions[countDown].answers.shuffled().forEach { println(it) }
-            var answer = readLine()
-            if (answer.toString() == "1" ){
-                println("Correct")
-                println()
-                correct++
-            }else{
-                println("Wrong")
-                println()
-                wrong++
-            }
-            countDown--
-        }
-        println("Final Results: \nCorrect: $correct \nWrong: $wrong")
-    }
     fun randomizeQuestions():Unit{
         questions.shuffle()
     }

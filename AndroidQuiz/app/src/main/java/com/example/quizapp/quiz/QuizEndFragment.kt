@@ -32,9 +32,7 @@ class QuizEndFragment :Fragment(R.layout.quiz_end_fragment){
                 handleBack()            }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
         initialize()
-
         return viewLayout
     }
 
@@ -58,5 +56,4 @@ class QuizEndFragment :Fragment(R.layout.quiz_end_fragment){
         }
         scoreBoard.setText("Your score: " + sharedViewModel.score.value.toString() +" / " + sharedViewModel.questions.value?.size )
     }
-
 }

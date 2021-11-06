@@ -13,6 +13,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.quizapp.R
+import com.example.quizapp.databinding.FragmentQuestionAddBinding
+import com.example.quizapp.databinding.QuestionFragmentBinding
 import com.example.quizapp.models.SharedViewModel
 import com.example.quizapp.module.QuizController
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +33,8 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
     lateinit var namePanel:TextView
     lateinit var layout:RelativeLayout
     private val sharedViewModel: SharedViewModel by activityViewModels()
-
+    private var _binding: QuestionFragmentBinding? = null
+    private val binding get() = _binding!!
     companion object{
         var COUNTER:Int = 0
     }
@@ -46,15 +49,15 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
                 handleBack()            }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
         initializeComponents()
         solveQuiz()
-        if(!viewLayout.isFocused){
+        if(viewLayout.isFocused){
             COUNTER = 0
         }
 
         return viewLayout
     }
-
 
 
     private fun solveQuiz() {
