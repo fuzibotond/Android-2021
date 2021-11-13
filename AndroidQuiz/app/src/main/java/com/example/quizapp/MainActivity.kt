@@ -1,21 +1,25 @@
 package com.example.quizapp
 
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.core.view.updateLayoutParams
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.quizapp.databinding.HeaderNavigationDrawerBinding
 import com.example.quizapp.models.SharedViewModel
+import com.example.quizapp.module.Answer
+import com.example.quizapp.module.Question
+import com.example.quizapp.repository.Repository
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 
@@ -25,14 +29,59 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout:DrawerLayout
     private lateinit var navigationView:NavigationView
     private val sharedViewModel: SharedViewModel by viewModels()
+    private lateinit var viewModel: MainViewModel
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //        setupActionBarWithNavController(findNavController(R.id.nav_host_fragment))
         initializeView()
         initMenu()
+
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        viewModel.getPost()
+
+        viewModel.myResponse.observe(this, Observer { response ->
+            if (response.isSuccessful){
+                var questions = arrayListOf<Question>()
+                var categories = mutableMapOf<String, MutableList<Question>>()
+                Log.d("Response", response?.body()?.response_code.toString())
+                response.body()?.results?.forEach {
+                    val answers = arrayListOf<Answer>()
+                    it.incorrect_answers.forEach { answers.add(Answer(it, false)) }
+                    answers.add(Answer(it.correct_answer,true))
+                    answers.shuffle()
+                    questions.add(Question(it.question, answers))
+
+//                    categories.putIfAbsent(it.category, mutableListOf(Question(it.question, answers)))
+                }
+                categories.put("Any category", questions)
+                response.body()?.results?.forEach { categories.putIfAbsent(it.category, mutableListOf()) }
+                response.body()?.results?.forEach {
+                    val answers = arrayListOf<Answer>()
+                    it.incorrect_answers.forEach { answers.add(Answer(it, false)) }
+                    answers.add(Answer(it.correct_answer,true))
+                    answers.shuffle()
+//                    questions.add(Question(it.question, answers))
+                    categories[it.category]?.add(Question(it.question,answers))
+
+                }
+                sharedViewModel.saveCategories(categories)
+                sharedViewModel.saveQuestions(questions)
+                response.body()?.results?.size?.let { sharedViewModel.saveSize(it) }
+                if (sharedViewModel.questions.value != null){
+                    sharedViewModel.questions.value?.forEach {
+                        Log.d("saved", it.text)
+                    }
+                }
+            }
+        })
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -45,6 +94,7 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawerLayout)
         navigationView = findViewById(R.id.menu_navigation_view)
         sharedViewModel.saveName("Sign in")
+
 
     }
     private fun initMenu(){
@@ -62,8 +112,6 @@ class MainActivity : AppCompatActivity() {
                 subName.setText(sharedViewModel.name.value)
             }
             else{
-                Toast.makeText(this, "Not contains $nameToCheck", Toast.LENGTH_SHORT).show()
-                Log.d("xxx", "Not contains")
                 nickName.setText(sharedViewModel.name.value)
                 subName.setText(sharedViewModel.name.value)
             }

@@ -54,6 +54,7 @@ class QuizEndFragment :Fragment(R.layout.quiz_end_fragment){
         btn_try_again.setOnClickListener {
             findNavController().navigate(R.id.action_quizEndFragment_to_quizStartFragment)
         }
-        scoreBoard.setText("Your score: " + sharedViewModel.score.value.toString() +" / " + sharedViewModel.questions.value?.size )
+        scoreBoard.setText("Your score: " + QuestionFragment.LocalScore +" / " + sharedViewModel.questions.value?.size )
+        sharedViewModel.saveScore(QuestionFragment.LocalScore)
     }
 }

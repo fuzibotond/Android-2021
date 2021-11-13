@@ -1,40 +1,40 @@
 Q 1 - What is an activity in Android?
 A - Activity performs the actions on the screen
-B - Manage the Application content
+B - Manage the Application content~
 C - Screen UI
 D - None of the above
 Q 2 - Which of the following is/are are the subclasses in Android?
-A - Action Bar Activity
+A - Action Bar Activity~
 B - Launcher Activity
 C - Preference Activity
 D - Tab Activity
 Q 3 - How to stop the services in android?
-A - finish()
+A - finish()~
 B - system.exit().
 C - By manually
 D - stopSelf() and stopService()
 Q 4 - How many applications are there in a given task in android?
-A - Two
+A - Two~
 B - One
 C - Many
 D - Zero
 Q 5 -Which permissions are required to get a location in android?
 A - ACCESS_FINE and ACCESS_COARSE
-B - GPRS permission
+B - GPRS permission~
 C - Internet permission
 D - WIFI permission.
 Q 6 - What is a base adapter in android?
 A - Base Adapter is a common class for any adapter, which can we use for both ListView and spinner
-B - A kind of adapter
+B - A kind of adapter~
 C - Data storage space
 D - None of the above.
 Q 7 - Data can be read from local source XML in android through
-A - XML resource parser
+A - XML resource parser~
 B - XML pull parsing
 C - DOM parsing
 D - None of the above
 Q 8 - How to find the JSON element length in android JSON?
-A - count()
+A - count()~
 B - sum()
 C - add()
 D - length()
@@ -42,59 +42,59 @@ Q 9 - Why don't we give MIN SDK as 1 in android?
 A - Android deprecated version
 B - There is no value for 1
 C - Android doesn't allow min version 1
-D - None of the above
+D - None of the above~
 Q 10 - What is off-line synchronization in android?
 A - Synchronization with internet
-B - Background synchronization
+B - Background synchronization~
 C - Synchronization without internet
 D - None of the above
 Q 11 - Which keyword do you use to define a function in Kotlin?
-A - main
+A - main~
 B - fun
 C - function
-D - new
+D - new~
 Q 12 - Kotlin is developed by...
 A - Google
-B - IBM
+B - IBM~
 C - Sun System
 D - JetBrains
 Q 13 - Which of the below extensions is used to create Kotlin file?
-A - .kt
+A - .kt~
 B - .ko
 C - .jv
 D - .app
 Q 14 - How to make comment in Kotlin?
 A - // this is comment
-B - */ this is comment
+B - */ this is comment~
 C - # this is comment
 D - <!-- this is comment -->
 Q 15 - How many types of constructors available in Kotlin?
 A - 1
 B - 2
 C - 3
-D - 4
+D - 4~
 Q 16 - How to create instance of the class in Kotlin?
-A - val person = new Person()
+A - val person = new Person()~
 B - val person = obj Person()
 C - val person = Person()
 D - val person = instance of Person()
 Q 17 - The default visibility of Kotlin class is..
 A - public
-B - private
+B - private~
 C - protected
 D - internal
 Q 18 - Which of the following is used to handle null exceptions in Kotlin?
 A - Lambda Function
-B - Range
+B - Range~
 C - Sealed Class
 D - Elvis Operator
 Q 19 - Which of the following is not basic datatypes in Kotlin?
 A - String
-B - List
+B - List~
 C - Array
 D - Character
 Q 20 - Kotlin language is ___
-A - OOP
+A - OOP~
 B - Procedural Programing
 C - A and B Both
 D - None of the above

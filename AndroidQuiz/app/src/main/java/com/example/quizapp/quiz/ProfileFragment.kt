@@ -48,6 +48,7 @@ class ProfileFragment : Fragment() {
                 Toast.makeText(requireContext(),"Your name can't be empty!", Toast.LENGTH_SHORT).show()
             }else{
                 sharedViewModel.saveName(binding.playerName.text.toString())
+                binding.imgProfile.setImageBitmap(sharedViewModel.imgProfilePic.value)
                 Toast.makeText(requireContext(),"We saved your new name, ${sharedViewModel.name.value}!", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_profileFragment_to_homeFragment)
             }

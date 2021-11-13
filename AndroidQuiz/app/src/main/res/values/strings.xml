@@ -26,4 +26,15 @@
     <string name="details">Details</string>
     <string name="delete">Delete</string>
     <string name="back">Back</string>
+    <string name="this_is_the_correct_answer">This is the correct answer</string>
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>

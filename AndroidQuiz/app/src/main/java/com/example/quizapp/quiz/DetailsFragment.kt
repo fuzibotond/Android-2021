@@ -34,10 +34,10 @@ class DetailsFragment : Fragment() {
 
     private fun initialize() {
         binding.tvQuestion.text = sharedViewModel.getDetailsQuestion().text
-        binding.tvAnswer1.text = sharedViewModel.getDetailsQuestion().answers.get(0)
-        binding.tvAnswer2.text = sharedViewModel.getDetailsQuestion().answers.get(1)
-        binding.tvAnswer3.text = sharedViewModel.getDetailsQuestion().answers.get(2)
-        binding.tvAnswer4.text = sharedViewModel.getDetailsQuestion().answers.get(3)
+        binding.tvAnswer1.text = sharedViewModel.getDetailsQuestion().answers.get(0).text
+        binding.tvAnswer2.text = sharedViewModel.getDetailsQuestion().answers.get(1).text
+        binding.tvAnswer3.text = sharedViewModel.getDetailsQuestion().answers.get(2).text
+        binding.tvAnswer4.text = sharedViewModel.getDetailsQuestion().answers.get(3).text
 
     }
     fun setListeners(){

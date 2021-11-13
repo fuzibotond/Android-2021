@@ -1,167 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".quiz.QuestionAddFragment">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">>
 
-    <ImageView
-        android:id="@+id/new_question"
-        android:layout_width="183dp"
-        android:layout_height="172dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/img_new_question" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/tv_question_text"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/new_question"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Question text"
-        app:helperText="Required"
-        app:helperTextTextColor="@color/red"
-        app:endIconMode="clear_text"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_height="match_parent"
+        tools:context=".quiz.QuestionAddFragment"
+        android:scrollbarAlwaysDrawVerticalTrack="true">
 
+        <ImageView
+            android:id="@+id/new_question"
+            android:layout_width="183dp"
+            android:layout_height="172dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/img_new_question" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_question_text_edit"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/tv_question_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="40"
-           />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <TextView
-        android:id="@+id/answers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_question_text"
-        android:text="@string/answers"
-        android:textSize="18sp"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp"
-        android:paddingLeft="10dp"/>
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/tv_answer1_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/answers"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        app:helperText="Required"
-        app:helperTextTextColor="@color/red"
-        app:endIconMode="clear_text"
-        android:paddingBottom="5dp"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_answer1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
+            android:layout_below="@+id/new_question"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:backgroundTint="#ECE4E4"
             android:ems="10"
-            android:hint="Answer 1" />
-    </com.google.android.material.textfield.TextInputLayout>
-   <com.google.android.material.textfield.TextInputLayout
-       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-       android:id="@+id/tv_answer2_text"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_below="@+id/tv_answer1_text"
-       android:paddingLeft="20dp"
-       android:paddingRight="20dp"
-       app:helperText="Required"
-       app:helperTextTextColor="@color/red"
-       app:endIconMode="clear_text"
-       android:paddingBottom="5dp"
-       >
-       <com.google.android.material.textfield.TextInputEditText
-           android:id="@+id/tv_answer2"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+            android:hint="Question text"
+            app:helperText="Required"
+            app:helperTextTextColor="@color/red"
+            app:endIconMode="clear_text"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-           android:layout_centerHorizontal="true"
-           android:layout_marginTop="10dp"
-           android:backgroundTint="#ECE4E4"
-           android:ems="10"
-           android:hint="Answer 2">
 
-       </com.google.android.material.textfield.TextInputEditText>
-   </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/tv_answer3_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_answer2_text"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        app:endIconMode="clear_text"
-        android:paddingBottom="5dp"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_answer3"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_question_text_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="40"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/answers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_question_text"
+            android:text="@string/answers"
+            android:textSize="18sp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="10dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_answer1_text"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/answers"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="0dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
+            app:endIconMode="clear_text"
+            app:helperText="Required"
+            app:helperTextTextColor="@color/red">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/ans1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/this_is_the_correct_answer"
+                android:textColor="#787373"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_answer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ECE4E4"
+                android:ems="10"
+                android:hint="Answer 1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/tv_answer2_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_answer1_text"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:helperText="Required"
+            app:helperTextTextColor="@color/red"
+            app:endIconMode="clear_text"
+            android:paddingBottom="5dp"
+            >
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/ans2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/this_is_the_correct_answer"
+                android:textColor="#787373" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_answer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#ECE4E4"
+                android:ems="10"
+                android:hint="Answer 2">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/tv_answer3_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_answer2_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="#ECE4E4"
-            android:ems="10"
-            android:hint="Answer 3"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:id="@+id/tv_answer4_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_answer3_text"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        app:endIconMode="clear_text"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_answer4"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:endIconMode="clear_text"
+            android:paddingBottom="5dp"
+            ><com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ans3"
+            android:text="@string/this_is_the_correct_answer"
+            android:textColor="#787373"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_answer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_answer2_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#ECE4E4"
+                android:ems="10"
+                android:hint="Answer 3"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/tv_answer4_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_answer3_text"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:endIconMode="clear_text"
+            >
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/ans4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/this_is_the_correct_answer"
+                android:textColor="#787373"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_answer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_answer3_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#ECE4E4"
+                android:ems="10"
+                android:hint="Answer 4">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btn_save_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_answer4_text"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:backgroundTint="#ECE4E4"
-            android:ems="10"
-            android:hint="Answer 4">
+            android:text="Save question"
+            >
 
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
+        </Button>
 
-
-    <Button
-        android:id="@+id/btn_save_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_answer4_text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Save question"
-        >
-
-    </Button>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

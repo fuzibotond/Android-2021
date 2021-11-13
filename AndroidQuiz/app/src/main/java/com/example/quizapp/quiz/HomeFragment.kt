@@ -23,9 +23,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun initialize() {
-        sharedViewModel.saveQuizController(requireActivity())
+        //sharedViewModel.saveQuizController(requireActivity())
         val icon = BitmapFactory.decodeResource(this.resources, R.mipmap.img_avatar)
-        sharedViewModel.saveProfilePic(icon)
+        if (sharedViewModel.imgProfilePic.value == null){
+            sharedViewModel.saveProfilePic(icon)
+        }
 
     }
     private fun setListeners(){

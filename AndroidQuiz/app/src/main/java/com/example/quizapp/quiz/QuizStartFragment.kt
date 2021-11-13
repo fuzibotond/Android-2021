@@ -51,7 +51,7 @@ class QuizStartFragment :Fragment(R.layout.quiz_start_fragment){
     }
 
     fun initialize(){
-
+        binding.editTextTextPersonName.setHint(sharedViewModel.getName())
         binding.selectButton.setOnClickListener {
             getContact.launch(0)
         }
@@ -60,11 +60,12 @@ class QuizStartFragment :Fragment(R.layout.quiz_start_fragment){
             if(binding.editTextTextPersonName.text.toString().isEmpty()){
                 Toast.makeText(requireContext(), "Oops! You can't start without name! Please fill it!", Toast.LENGTH_SHORT).show()
             }else{
-                sharedViewModel.saveName(binding.editTextTextPersonName.text.toString())
-                Toast.makeText(requireContext(), "Let's get it started ${sharedViewModel.name.value}", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_quizStartFragment_to_questionFragment)
-            }
 
+
+                    sharedViewModel.saveName(binding.editTextTextPersonName.text.toString())
+                    Toast.makeText(requireContext(), "Let's get it started ${sharedViewModel.name.value}", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_quizStartFragment_to_questionFragment)
+            }
         }
         binding.imgViewForProfilePic.setOnClickListener {
             getImage.launch(0)

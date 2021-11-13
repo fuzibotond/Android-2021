@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.quizapp.MainViewModel
 import com.example.quizapp.module.Question
 import com.example.quizapp.module.QuizController
 
@@ -25,6 +26,9 @@ class SharedViewModel : ViewModel() {
     val questionNum = _questionNum
     private var _detailsQuestion = MutableLiveData<Question>()
     val detailsQuestion = _detailsQuestion
+    private var _categories = MutableLiveData<MutableMap<String,MutableList<Question>>>()
+    val categories = _categories
+
 
     fun saveDetailsQuestion(question:Question){
         _detailsQuestion.value = question
@@ -32,18 +36,22 @@ class SharedViewModel : ViewModel() {
     fun getDetailsQuestion():Question{
         return detailsQuestion.value!!
     }
-
-    fun saveSize(){
-        _questionNum.value = questions.value!!.size
+    fun saveSize(size:Int){
+        questionNum.value = size
     }
     fun getSize():Int{
-        return questionNum.value!!
+        return _questionNum.value!!
     }
     fun getScore():Int{
         return score.value!!
     }
-    fun incScore(){
-        _score.value = getScore()+1
+    fun saveScore(value:Int){
+        if (value > score.value!!){
+            _score.value = value
+        }
+    }
+    fun getName():String{
+        return name.value.toString()
     }
     fun saveName(newName:String){
         _name.value = newName
@@ -54,23 +62,26 @@ class SharedViewModel : ViewModel() {
     fun saveCurrentQuestion(q:Question?){
         _currentQuestion.value = q
     }
-
     fun saveQuestions(newQuestion:ArrayList<Question>){
         _questions.value = newQuestion
     }
-    fun deleteQuestion(position: Question) {
-        questions.value?.remove(position)
+    fun deleteQuestion(position:Int) {
+        _questions.value?.removeAt(position)
     }
     fun saveQuizController(context: Activity){
-        if (_quizController.value == null){
-            val newQuizController = QuizController(context)
-            _quizController.value = newQuizController
-        }
-        setQuizController()
+//        if (_quizController.value == null){
+//            val newQuizController = QuizController(context)
+//            _quizController.value = newQuizController
+//        }
+//        setQuizController()
     }
     fun setQuizController(){
-        quizController.value?.questions?.let { saveQuestions(it) }
-//        quizController.value?.randomizeQuestions()
+
+        //quizController.value?.questions?.let { saveQuestions(it) }
+        //quizController.value?.randomizeQuestions()
+    }
+    fun collectQuestions(question: Question){
+        _questions.value?.add(question)
     }
 
     fun saveProfilePic(newPicture:Bitmap?){
@@ -81,7 +92,7 @@ class SharedViewModel : ViewModel() {
     }
     fun addNewQuestion(newQuestion:Question, context: Activity){
         if (quizController.value == null){
-            saveQuizController(context)
+//            saveQuizController(context)
 
             val temp = questions.value
             if (temp != null) {
@@ -97,10 +108,13 @@ class SharedViewModel : ViewModel() {
             _questions.value = temp
 
         }
-        saveSize()
+        //questions.value?.let { saveSize(it.size) }
     }
 
     fun getQuestion(counterCreate: Int): Question? {
         return questions.value?.get(counterCreate)
+    }
+    fun saveCategories(categoriesries:MutableMap<String,MutableList<Question>>){
+        _categories.value = categoriesries
     }
 }

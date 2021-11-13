@@ -12,7 +12,7 @@ class QuizController (val context: Context){
     companion object{
         lateinit var QUESTIONS:ArrayList<Question>
     }
-    val questions = arrayListOf<Question>()
+    var questions = arrayListOf<Question>()
 
     init {
 
@@ -30,15 +30,28 @@ class QuizController (val context: Context){
                 mAnswers.add(it)
             }
             if (mAnswers.size == 4){
-                val temp = mutableListOf<String>()
-                mAnswers.forEach { temp.add(it) }
+                val temp = mutableListOf<Answer>()
+
+                mAnswers.forEach {
+                    var good:String? = null
+                    val correct = it.last()=='~'
+                    if(correct){
+                         good = it.takeWhile { !it.equals('~') }
+                        temp.add(Answer(good, correct))
+                    }else{
+                        temp.add(Answer(it, correct))
+                    }
+
+                }
                 questions.add(Question(mQuestion,temp ))
                 mAnswers.clear()
+
             }
             lines++
         }
         QUESTIONS = this.questions
     }
+
 
     fun randomizeQuestions():Unit{
         questions.shuffle()

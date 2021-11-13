@@ -37,7 +37,9 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
     private val binding get() = _binding!!
     companion object{
         var COUNTER:Int = 0
+        var LocalScore = 0
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -83,7 +85,6 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
             if (COUNTER < sharedViewModel.questions.value?.size!!){
                 Log.i("Counter: ", COUNTER.toString())
                 startingQuiz(COUNTER)
-
             }else{
                 Log.i("Counter END: ", COUNTER.toString())
                 findNavController().navigate(R.id.action_questionFragment_to_quizEndFragment)
@@ -93,7 +94,6 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
                 val snack = Snackbar.make(it,"Please select your answer!",Snackbar.LENGTH_LONG)
                 snack.show()
                 Log.i("XXX" ,"bajvan $COUNTER")
-
             }
             else{
                 COUNTER++
@@ -102,11 +102,9 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
     }
 
     fun initializeComponents(){
+        LocalScore=0
         namePanel = viewLayout.findViewById(R.id.namePanel)
-
-
-        sharedViewModel.saveQuizController(requireActivity())
-
+        //sharedViewModel.saveQuizController(requireActivity())
         txtViewQuestion = viewLayout.findViewById(R.id.textViewQuestion)
         btnNext = viewLayout.findViewById(R.id.buttonNext)
         layout  = viewLayout.findViewById(R.id.layout)
@@ -143,27 +141,43 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
     }
 
     fun startingQuiz(counter:Int){
+        if(radioGroup.childCount == 3){
+            radioGroup.addView(rb4)
+        }else if (radioGroup.childCount == 2){
+            radioGroup.addView(rb3)
+            radioGroup.addView(rb4)
+        }
+
         sharedViewModel.saveCurrentQuestion(sharedViewModel.questions.value?.get(counter))
         txtViewQuestion.setText(sharedViewModel.currentQuestion.value?.text)
         val answer = sharedViewModel.currentQuestion.value?.answers
-                rb1.setText(answer?.get(0))
-                rb2.setText(answer?.get(1))
-        if (answer?.get(2).toString() == ""){
-            radioGroup.removeView(rb3)
-        }else{
-            rb3.setText(answer?.get(2))
-        }
-        if (answer?.get(3).toString() == ""){
-            radioGroup.removeView(rb4)
-        }else{
-            rb4.setText(answer?.get(3))
-        }
 
-            if (rb1.isChecked){
-                sharedViewModel.incScore()
+        rb1.setText(answer?.get(0)?.text)
+        rb2.setText(answer?.get(1)?.text)
+        if (answer?.size!! > 2){
+            if (answer?.get(2)?.text.toString() == ""){
+                radioGroup.removeView(rb3)
+            }else{
+                rb3.setText(answer?.get(2)?.text)
+            }
+            if (answer?.size!! > 3){
+                if (answer?.get(3)?.text.toString() == ""){
+                    radioGroup.removeView(rb4)
+                }else{
+                    rb4.setText(answer?.get(3)?.text)
+                }
             }
 
+        }
 
+
+        val givenAnswer = radioGroup.checkedRadioButtonId
+        Log.d("xxx", "Given answer: $givenAnswer")
+        if (givenAnswer > -1 && givenAnswer < sharedViewModel.getCurrentQuestion()!!.answers!!.size ){
+            if (sharedViewModel.getCurrentQuestion()?.answers?.get(givenAnswer)?.correct == true){
+                LocalScore++
+            }
+        }
     }
     fun handleBack(){
         AlertDialog.Builder(this.activity)
@@ -173,6 +187,7 @@ class QuestionFragment:Fragment(R.layout.question_fragment) {
             .setPositiveButton("OK"){ _,_ ->
                 findNavController().navigate(R.id.action_questionFragment_to_quizStartFragment)
                 COUNTER = 0
+                LocalScore = 0
             }
             .show()
     }
